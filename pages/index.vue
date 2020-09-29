@@ -32,6 +32,7 @@
           v-bind:close="close"
           v-bind:save="save"
           v-bind:formTitle="formTitle"
+          v-bind:flightCode="flightCode"
         />
         
       </v-toolbar>
@@ -74,6 +75,7 @@
 
 <script>
   import CargoDialog from '@/components/cargo-dialog.vue'
+  import flightCode from '@/static/flight-code.json'
   export default {
     data: () => ({
       dialog: false,
@@ -110,6 +112,7 @@
         airline: '',
         flightNumber: ''
       },
+      flightCode: flightCode
     }),
 
     computed: {
@@ -128,6 +131,19 @@
       this.initialize()
     },
     mounted () {
+      console.log(flightCode)
+      // var xmlhttp = new XMLHttpRequest();
+      // var url = "myTutorials.txt";
+
+      // xmlhttp.onreadystatechange = function() {
+      //     if (this.readyState == 4 && this.status == 200) {
+      //         var myArr = JSON.parse(this.responseText);
+      //         myFunction(myArr);
+      //     }
+      // };
+      // xmlhttp.open("GET", url, true);
+      // xmlhttp.send();
+
       this.$store.dispatch('getCargoList')
         .then(res => {
           if(res){
