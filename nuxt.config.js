@@ -45,7 +45,7 @@ export default {
   },
   
   proxy: {
-    '/api/': { target: 'https://klikmbc.co.id/json/getcodearea-json', pathRewrite: {'^/api/': ''}, changeOrigin: true }
+    // '/api/': { target: 'https://klikmbc.co.id/json/getcodearea-json', pathRewrite: {'^/api/': ''}, changeOrigin: true }
   },
 
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)

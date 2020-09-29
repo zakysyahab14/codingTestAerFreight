@@ -1,7 +1,6 @@
 <template>
 <v-card>
   <v-card-title>
-      
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"
@@ -13,7 +12,7 @@
   </v-card-title>
   <v-data-table
     :headers="headers"
-    :items="desserts"
+    :items="cargoList"
     :search="search"
     sort-by="calories"
     class="elevation-1"
@@ -45,20 +44,23 @@
             <v-card-text>
               <v-container>
                 <v-row>
-                  <v-col cols="12" sm="6" md="4">
+                  <v-col cols="12" sm="6" md="8">
                     <v-text-field v-model="editedItem.cargoName" label="Cargo Name"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
                     <v-text-field v-model="editedItem.capacity" label="Capacity"></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.fat" label="Fat (g)"></v-text-field>
+                  <v-col cols="12" sm="6" md="6">
+                    <v-text-field v-model="editedItem.origin" label="Origin"></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="6">
+                    <v-text-field v-model="editedItem.destination" label="Destination"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.carbs" label="Carbs (g)"></v-text-field>
+                    <v-text-field v-model="editedItem.airline" label="Airline Name"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
+                    <v-text-field v-model="editedItem.flightNumber" label="Flight Number"></v-text-field>
                   </v-col>
                 </v-row>
               </v-container>
@@ -122,26 +124,30 @@
           value: 'cargoName',
         },
         { text: 'Capacity', value: 'capacity' },
-        { text: 'Flight Schedule Date', value: 'flight' },
+        { text: 'Airline', value: 'airline' },
+        { text: 'Flight Number', value: 'flightNumber' },
         { text: 'Origin', value: 'origin' },
         { text: 'Destination', value: 'destination' },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
+      cargoList: [],
       desserts: [],
       editedIndex: -1,
       editedItem: {
         cargoName: '',
         capacity: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0,
+        origin: '',
+        destination: '',
+        airline: '',
+        flightNumber: ''
       },
       defaultItem: {
         cargoName: '',
         capacity: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0,
+        origin: '',
+        destination: '',
+        airline: '',
+        flightNumber: ''
       },
     }),
 
@@ -160,108 +166,47 @@
     created () {
       this.initialize()
     },
-  //   mounted () {
-  //   this.$store.dispatch('getCode').then(
-  //     (response) => {
-  //       if (response.status === 200) {
-  //         console.log(response.data)
+    mounted () {
+      this.$store.dispatch('getCargoList')
+        .then(res => {
+          if(res){
+            this.cargoList = res
+          }
+        })
+    // this.$store.dispatch('getCode').then(
+    //   (response) => {
+    //     if (response.status === 200) {
+    //       console.log(response.data)
           
-  //       } else {
-  //         // this.loadings = false
-  //         // localStorage.removeItem('token')
-  //         // window.location.href = '/'
-  //         // this.$toast.error('You need to login!')
-  //       }
-  //     }
-  //   )
+    //     } else {
+    //       this.loadings = false
+    //       localStorage.removeItem('token')
+    //       window.location.href = '/'
+    //       this.$toast.error('You need to login!')
+    //     }
+    //   }
+    // )
 
     
-  // },
+  },
     methods: {
       initialize () {
-        this.desserts = [
-          {
-            cargoName: '1CGK45',
-            capacity: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0,
-          },
-          {
-            cargoName: '2BDO32',
-            capacity: 237,
-            fat: 9.0,
-            carbs: 37,
-            protein: 4.3,
-          },
-          {
-            cargoName: '3GGL20',
-            capacity: 262,
-            fat: 16.0,
-            carbs: 23,
-            protein: 6.0,
-          },
-          {
-            cargoName: '4GKL22',
-            capacity: 305,
-            fat: 3.7,
-            carbs: 67,
-            protein: 4.3,
-          },
-          {
-            cargoName: '5TGR73',
-            capacity: 356,
-            fat: 16.0,
-            carbs: 49,
-            protein: 3.9,
-          },
-          {
-            cargoName: '6CGK20',
-            capacity: 375,
-            fat: 0.0,
-            carbs: 94,
-            protein: 0.0,
-          },
-          {
-            cargoName: '7BDO99',
-            capacity: 392,
-            fat: 0.2,
-            carbs: 98,
-            protein: 0,
-          },
-          {
-            cargoName: '8KSR18',
-            capacity: 408,
-            fat: 3.2,
-            carbs: 87,
-            protein: 6.5,
-          },
-          {
-            cargoName: '9MKS01',
-            capacity: 452,
-            fat: 25.0,
-            carbs: 51,
-            protein: 4.9,
-          },
-          {
-            cargoName: '10GGK40',
-            capacity: 518,
-            fat: 26.0,
-            carbs: 65,
-            protein: 7,
-          },
-        ]
       },
 
       editItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
-        this.editedItem = Object.assign({}, item)
+        this.editedIndex = this.cargoList.indexOf(item)
+        this.editedItem = item
         this.dialog = true
       },
 
       deleteItem (item) {
-        const index = this.desserts.indexOf(item)
-        confirm('Are you sure you want to delete this item?') && this.desserts.splice(index, 1)
+        const index = this.cargoList.indexOf(item)
+        confirm('Are you sure you want to delete this item?') && this.confirmDeleteItem(item.id, index)
+      },
+
+      confirmDeleteItem(itemId, index){
+        this.$store.dispatch('deleteCargoItem', {id: itemId})
+        this.cargoList.splice(index, 1)
       },
 
       close () {
@@ -274,9 +219,14 @@
 
       save () {
         if (this.editedIndex > -1) {
-          Object.assign(this.desserts[this.editedIndex], this.editedItem)
+          let editedItem = this.editedItem
+          this.$store.dispatch('updateCargoItem', {
+            body: this.editedItem
+          })
         } else {
-          this.desserts.push(this.editedItem)
+          this.$store.dispatch('addCargoItem', {
+            body: this.editedItem
+          })
         }
         this.close()
       },
