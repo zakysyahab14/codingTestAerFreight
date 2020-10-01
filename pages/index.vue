@@ -37,34 +37,37 @@
         
       </v-toolbar>
     </template>
+    <template v-slot:item.status="{ item }">
+        {{ item.status ? 'ACTIVE' : 'INACTIVE' }}
+    </template>
     <template v-slot:[`item.actions`]="{ item }">
-      <!-- <v-icon
+      <v-icon
         small
         class="mr-2"
         @click="editItem(item)"
       >
         mdi-pencil
-      </v-icon> -->
-      <img
+      </v-icon>
+      <!--<img
             src="~/assets/icon/edit.svg"
             class="mr-2"
-            style="z-index: 0; cursor: pointer;"
+            style="z-index: 0; cursor: pointer;color:#FFFFFF"
             width="15px"
             @click="editItem(item)"
-          >
-      <!-- <v-icon
+          > -->
+      <v-icon
         small
         @click="deleteItem(item)"
       >
         mdi-delete
-      </v-icon> -->
-      <img
+      </v-icon>
+      <!-- <img
             src="~/assets/icon/delete.svg"
             class="mr-2"
-            style="z-index: 0; cursor: pointer;"
+            style="z-index: 0; cursor: pointer;;color:#FFFFFF"
             width="15px"
             @click="deleteItem(item)"
-          >
+          > -->
     </template>
     <template v-slot:no-data>
       <v-btn color="primary" @click="initialize">Reset</v-btn>
@@ -75,7 +78,6 @@
 
 <script>
   import CargoDialog from '@/components/cargo-dialog.vue'
-  import flightCode from '@/static/flight-code.json'
   export default {
     data: () => ({
       dialog: false,
@@ -92,6 +94,7 @@
         { text: 'Flight Number', value: 'flightNumber' },
         { text: 'Origin', value: 'origin' },
         { text: 'Destination', value: 'destination' },
+        { text: 'Status', value: 'status'},
         { text: 'Actions', value: 'actions', sortable: false },
       ],
       cargoList: [],
@@ -102,7 +105,8 @@
         origin: '',
         destination: '',
         airline: '',
-        flightNumber: ''
+        flightNumber: '',
+        status: false
       },
       defaultItem: {
         cargoName: '',
@@ -110,9 +114,10 @@
         origin: '',
         destination: '',
         airline: '',
-        flightNumber: ''
+        flightNumber: '',
+        status: false
       },
-      flightCode: flightCode
+      flightCode: []
     }),
 
     computed: {
@@ -131,18 +136,12 @@
       this.initialize()
     },
     mounted () {
-      console.log(flightCode)
-      // var xmlhttp = new XMLHttpRequest();
-      // var url = "myTutorials.txt";
-
-      // xmlhttp.onreadystatechange = function() {
-      //     if (this.readyState == 4 && this.status == 200) {
-      //         var myArr = JSON.parse(this.responseText);
-      //         myFunction(myArr);
-      //     }
-      // };
-      // xmlhttp.open("GET", url, true);
-      // xmlhttp.send();
+      this.$store.dispatch('getFlight')
+        .then(res => {
+          if(res){
+            this.flightCode = res
+          }
+        })
 
       this.$store.dispatch('getCargoList')
         .then(res => {
@@ -150,19 +149,6 @@
             this.cargoList = res
           }
         })
-    // this.$store.dispatch('getCode').then(
-    //   (response) => {
-    //     if (response.status === 200) {
-    //       console.log(response.data)
-          
-    //     } else {
-    //       this.loadings = false
-    //       localStorage.removeItem('token')
-    //       window.location.href = '/'
-    //       this.$toast.error('You need to login!')
-    //     }
-    //   }
-    // )
   },
     methods: {
       initialize () {
@@ -170,6 +156,7 @@
 
       editItem (item) {
         this.editedIndex = this.cargoList.indexOf(item)
+        this.defaultItem = item
         this.editedItem = item
         this.dialog = true
       },
@@ -186,9 +173,9 @@
 
       close () {
         this.dialog = false
-        this.editedItem = Object.assign({}, this.defaultItem)
+        this.editedItem = this.defaultItem
         this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
+          this.editedItem = this.defaultItem
           this.editedIndex = -1
         })
       },
