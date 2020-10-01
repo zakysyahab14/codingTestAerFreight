@@ -63,7 +63,10 @@
       <v-toolbar-title v-text="title" />
       <v-spacer />
       
-      <v-icon>fas fa-user</v-icon>
+      
+      <v-toolbar-title v-if="isLoggedIn" class="mr-2">Hi Admin </v-toolbar-title>
+      <v-icon v-if="isLoggedIn">mdi-account-circle-outline</v-icon>
+    
     </v-app-bar>
     <v-main>
       <v-container>
@@ -87,6 +90,7 @@ export default {
       drawer: false,
       fixed: false,
       isLoggedIn: false,
+      firstname: '',
       items: [
         {
           icon: 'mdi-apps',
@@ -101,7 +105,8 @@ export default {
     }
   },
   mounted() {
-    if(!this.$cookies.get('USER_INFO')){
+    const userInfo = this.$cookies.get('USER_INFO')
+    if(!userInfo){
       this.isLoggedIn = false
       this.items.push(
         {
@@ -112,6 +117,7 @@ export default {
       )
     }else{
       this.isLoggedIn = true
+      this.firstname = userInfo.firstname
     }
   },
   methods: {
