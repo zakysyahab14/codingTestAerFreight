@@ -34,10 +34,10 @@
                   v-bind:class="[error.password ? 'border-red-700' : '']"
                 >
                 <span 
-                  v-if="error.username && error.username !== ''"
+                  v-if="error.password && error.password !== ''"
                   class="text-red-700 text-sm"
                 >
-                  {{error.username}}
+                  {{error.password}}
                 </span>
               </div>
               <div class="mt-4 w-full text-white">
@@ -86,7 +86,6 @@ export default {
     },
     login(){
       if(this.formValidation()){
-        console.log('process')
         this.getUser()
       }
     },
