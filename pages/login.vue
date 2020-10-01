@@ -55,6 +55,7 @@
 import Cookie from 'js-cookie'
 export default {
   layout: 'empty',
+  middleware: 'authenticated',
   components: {
   },
 

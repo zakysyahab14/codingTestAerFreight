@@ -135,7 +135,6 @@ export const actions = {
     },
     login({}, payload){
         const { username, password } = payload
-        console.log(payload)
         try{
             return new Promise((resolve) => {
                 axios.get(`${API_SERVER}user/user?username=${username}&password=${password}`)

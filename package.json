@@ -9,9 +9,9 @@
     "generate": "nuxt generate",
     "test": "jest",
     "json-server": "json-server --watch db.json --port 3004",
-    "dev:all": "npm-run-all --parallel dev json-server",
+    "dev:all": "npm-run-all --parallel dev db-json",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "db-json": "json-server --watch db.js --port 3005"
+    "db-json": "node db.js"
   },
   "dependencies": {
     "@nuxtjs/auth": "^4.9.0",
@@ -22,6 +22,7 @@
     "axios": "^0.20.0",
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.11.0",
+    "cookie-universal-nuxt": "^2.1.4",
     "cookieparser": "^0.1.0",
     "core-js": "^3.6.5",
     "firebase": "^7.21.1",

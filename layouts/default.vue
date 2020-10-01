@@ -50,35 +50,14 @@
       </v-btn>
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      <v-btn
-        icon
-        @click.stop="rightDrawer = !rightDrawer"
-      >
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
+      
+      <v-icon>fas fa-user</v-icon>
     </v-app-bar>
     <v-main>
       <v-container>
         <nuxt />
       </v-container>
     </v-main>
-    <v-navigation-drawer
-      v-model="rightDrawer"
-      :right="right"
-      temporary
-      fixed
-    >
-      <v-list>
-        <v-list-item @click.native="right = !right">
-          <v-list-item-action>
-            <v-icon light>
-              mdi-repeat
-            </v-icon>
-          </v-list-item-action>
-          <v-list-item-title>Switch drawer (click me)</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
     <v-footer
       :absolute="!fixed"
       app
@@ -95,6 +74,7 @@ export default {
       clipped: false,
       drawer: false,
       fixed: false,
+      isLoggedIn: false,
       items: [
         {
           icon: 'mdi-apps',
@@ -107,6 +87,18 @@ export default {
       rightDrawer: false,
       title: 'Air Freight Cargo Data'
     }
-  }
+  },
+  mounted() {
+    if(!this.$cookies.get('USER_INFO')){
+        this.isLoggedIn = true
+        this.items.push(
+          {
+            icon: 'mdi-apps',
+            title: 'Login',
+            to: '/login'
+          }
+        )
+      }
+  },
 }
 </script>

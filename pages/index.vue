@@ -17,7 +17,7 @@
     sort-by="calories"
     class="elevation-1"
   >
-    <template v-slot:top>
+    <template v-slot:top v-if="isLoggedIn">
       <v-toolbar flat color="white">
         <v-toolbar-title>My CRUD</v-toolbar-title>
         <v-divider
@@ -40,7 +40,7 @@
     <template v-slot:item.status="{ item }">
         {{ item.status ? 'ACTIVE' : 'INACTIVE' }}
     </template>
-    <template v-slot:[`item.actions`]="{ item }">
+    <template v-if="isLoggedIn" v-slot:[`item.actions`]="{ item }">
       <v-icon
         small
         class="mr-2"
@@ -81,6 +81,7 @@
   export default {
     data: () => ({
       dialog: false,
+      isLoggedIn: false,
       search: '',
       headers: [
         {
@@ -95,7 +96,7 @@
         { text: 'Origin', value: 'origin' },
         { text: 'Destination', value: 'destination' },
         { text: 'Status', value: 'status'},
-        { text: 'Actions', value: 'actions', sortable: false },
+        
       ],
       cargoList: [],
       editedIndex: -1,
@@ -136,6 +137,11 @@
       this.initialize()
     },
     mounted () {
+      if(this.$cookies.get('USER_INFO')){
+        this.isLoggedIn = true
+        this.headers.push({ text: 'Actions', value: 'actions', sortable: false },)
+      }
+      
       this.$store.dispatch('getFlight')
         .then(res => {
           if(res){
