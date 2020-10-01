@@ -6,9 +6,9 @@ const API_SERVER = 'http://localhost:3005/'
 export const actions = {
     getCargoList({}, payload){
         let endPoint = `${API_SERVER}data/cargo`
-        if(payload.loggedIn === false){
-            endPoint += `?status=true`
-        }
+        // if(payload.loggedIn === false){
+        //     endPoint += `?status=true`
+        // }
         try{
             return new Promise( resolve => {
                 axios.get(endPoint)
@@ -61,6 +61,7 @@ export const actions = {
                     .then(response => {
                         if (response.status === 200) {
                             resolve(response.data)
+                            window.location.reload
                         } else {
                             resolve(false)
                         }
