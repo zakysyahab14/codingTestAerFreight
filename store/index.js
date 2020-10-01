@@ -4,10 +4,14 @@ import { v4 as uuidv4 } from 'uuid';
 
 const API_SERVER = 'http://localhost:3005/'
 export const actions = {
-    getCargoList(){
+    getCargoList({}, payload){
+        let endPoint = `${API_SERVER}data/cargo`
+        if(payload.loggedIn === false){
+            endPoint += `?status=true`
+        }
         try{
             return new Promise( resolve => {
-                axios.get(API_SERVER+'data/cargo')
+                axios.get(endPoint)
                     .then(response => {
                         if (response.status === 200) {
                             resolve(response.data)

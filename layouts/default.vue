@@ -22,7 +22,19 @@
             <v-list-item-title v-text="item.title" />
           </v-list-item-content>
         </v-list-item>
+        
+        <v-list-item 
+          v-if="isLoggedIn"
+          v-on:click="handleClick">
+          <v-list-item-action>
+            <v-icon>mdi-apps</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Logout</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
+      
     </v-navigation-drawer>
     <v-app-bar
       :clipped-left="clipped"
@@ -90,15 +102,23 @@ export default {
   },
   mounted() {
     if(!this.$cookies.get('USER_INFO')){
-        this.isLoggedIn = true
-        this.items.push(
-          {
-            icon: 'mdi-apps',
-            title: 'Login',
-            to: '/login'
-          }
-        )
-      }
+      this.isLoggedIn = false
+      this.items.push(
+        {
+          icon: 'mdi-apps',
+          title: 'Login',
+          to: '/login'
+        }
+      )
+    }else{
+      this.isLoggedIn = true
+    }
+  },
+  methods: {
+    handleClick(){
+      this.$cookies.remove('USER_INFO')
+      window.location.reload()
+    }
   },
 }
 </script>

@@ -6,6 +6,7 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
+    "start:all": "npm-run-all --parallel start db-json",
     "generate": "nuxt generate",
     "test": "jest",
     "json-server": "json-server --watch db.json --port 3004",

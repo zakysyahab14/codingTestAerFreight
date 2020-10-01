@@ -149,7 +149,9 @@
           }
         })
 
-      this.$store.dispatch('getCargoList')
+      this.$store.dispatch('getCargoList', {
+        loggedIn: this.isLoggedIn
+      })
         .then(res => {
           if(res){
             this.cargoList = res
