@@ -1,65 +1,66 @@
 <template>
   <no-ssr>
     <section class="section bg-gray-200 h-screen">
-      <div class="text-center flex flex-auto flex-row h-screen justify-center items-center">
-            <form method="post" 
-              class="bg-white p-6 mr-6 rounded shadow text-left w-3/12 divide-x-2"
-              @submit.prevent="login">
-              <div class="text-green-700 text-2xl font-medium mb-4 text-center">
-                <h3>Hello Again, Admin! </h3>
-              </div>
-              <div class="mb-4">
-                <input
-                  v-model="username"
-                  type="text"
-                  class="input-style w-full p-1 rounded border border-gray-500 border-solid"
-                  placeholder="Username (admin)"
-                  name="username"
-                  v-bind:class="[error.username ? 'border-red-700' : '']"
-                >
-                <span 
-                  v-if="error.username && error.username !== ''"
-                  class="text-red-700 text-sm"
-                >
-                  {{error.username}}
-                </span>
-              </div>
-              <div class="">
-                <input
-                  v-model="password"
-                  type="password"
-                  class="input-style w-full p-1 rounded border-gray-500 border border-gray-500 border-solid" 
-                  name="password"
-                  placeholder="Password (12345)"
-                  v-bind:class="[error.password ? 'border-red-700' : '']"
-                >
-                <span 
-                  v-if="error.password && error.password !== ''"
-                  class="text-red-700 text-sm"
-                >
-                  {{error.password}}
-                </span>
-              </div>
-              <div class="mt-4 w-full text-white hover:text-green-600">
-                <button class="rounded font-medium p-1 border-solid border-4 border-green-500 bg-green-500 hover:bg-white w-full">
-                  Log In
-                </button>
-              </div>
-            </form>
-            <div class="text-green-700 text-2xl font-medium mb-4 text-center"> or </div>
-            <div 
-              class="bg-white p-6 ml-6 rounded shadow text-left w-3/12">
-              <div class="text-orange-600 text-2xl font-medium mb-4 text-center">
-                <h3>You are a Guest?</h3>
-              </div>
-
-              <div class="mt-4 w-full text-white hover:text-orange-600">
-                <button @click="guest" class="rounded font-medium p-1 border-solid border-4 border-orange-500 bg-orange-500 hover:bg-white w-full">
-                  Guest Log In
-                </button>
-              </div>
-            </div>
+      <div class="text-center flex flex-auto flex-col h-screen justify-center items-center">
+        <div class="bg-white p-6 rounded shadow text-left w-full sm:w-full md:w-full lg:w-4/12 divide-x-2"> 
+        <form method="post" 
+          @submit.prevent="login">
+          <div class="text-green-700 text-2xl font-medium mb-4 text-center">
+            <h3>Hello Again, Admin! </h3>
           </div>
+          <div class="mb-4">
+            <input
+              v-model="username"
+              type="text"
+              class="input-style w-full p-1 rounded border border-gray-500 border-solid"
+              placeholder="Username (admin)"
+              name="username"
+              v-bind:class="[error.username ? 'border-red-700' : '']"
+            >
+            <span 
+              v-if="error.username && error.username !== ''"
+              class="text-red-700 text-sm"
+            >
+              {{error.username}}
+            </span>
+          </div>
+          <div class="">
+            <input
+              v-model="password"
+              type="password"
+              class="input-style w-full p-1 rounded border-gray-500 border border-gray-500 border-solid" 
+              name="password"
+              placeholder="Password (12345)"
+              v-bind:class="[error.password ? 'border-red-700' : '']"
+            >
+            <span 
+              v-if="error.password && error.password !== ''"
+              class="text-red-700 text-sm"
+            >
+              {{error.password}}
+            </span>
+          </div>
+          <div class="mt-4 w-full text-white hover:text-green-600">
+            <button class="rounded font-medium p-1 border-solid border-4 border-green-500 bg-green-500 hover:bg-white w-full">
+              Log In
+            </button>
+          </div>
+        </form>
+        </div>
+        <div class="text-green-700 text-2xl font-medium mb-4 text-center"> or </div>
+        <div 
+          class="bg-white p-6 rounded shadow text-left w-full sm:w-full md:w-full lg:w-4/12 ">
+          <div class="text-orange-600 text-2xl font-medium mb-4 text-center">
+            <h3>You are a Guest?</h3>
+          </div>
+
+          <div class="mt-4 w-full text-white hover:text-orange-600">
+            <button @click="guest" class="rounded font-medium p-1 border-solid border-4 border-orange-500 bg-orange-500 hover:bg-white w-full">
+              Guest Log In
+            </button>
+          </div>
+        </div>
+      </div>
     </section>
   </no-ssr>
 </template>
