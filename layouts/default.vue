@@ -101,7 +101,7 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Air Freight Cargo Data'
+      title: 'Aer Freight Cargo Data'
     }
   },
   mounted() {

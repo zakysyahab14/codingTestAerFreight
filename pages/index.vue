@@ -37,7 +37,7 @@
         
       </v-toolbar>
     </template>
-    <template v-slot:item.status="{ item }">
+    <template v-slot:[`item.status`]="{ item }">
         {{ item.status ? 'ACTIVE' : 'INACTIVE' }}
     </template>
     <template v-if="isLoggedIn" v-slot:[`item.actions`]="{ item }">
