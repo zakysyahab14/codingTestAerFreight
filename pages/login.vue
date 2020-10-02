@@ -3,7 +3,7 @@
     <section class="section bg-gray-200 h-screen">
       <div class="text-center flex flex-auto flex-row h-screen justify-center items-center">
             <form method="post" 
-              class="bg-white p-6 rounded shadow text-left w-3/12 divide-x-2"
+              class="bg-white p-6 mr-6 rounded shadow text-left w-3/12 divide-x-2"
               @submit.prevent="login">
               <div class="text-green-700 text-2xl font-medium mb-4 text-center">
                 <h3>Hello Again, Admin! </h3>
@@ -40,21 +40,21 @@
                   {{error.password}}
                 </span>
               </div>
-              <div class="mt-4 w-full text-white">
-                <button class="rounded p-2 bg-green-400 hover:bg-green-500 w-full">
+              <div class="mt-4 w-full text-white hover:text-green-600">
+                <button class="rounded font-medium p-1 border-solid border-4 border-green-500 bg-green-500 hover:bg-white w-full">
                   Log In
                 </button>
               </div>
             </form>
-            <div class="text-green-900 text-2xl font-medium mb-4 text-center"> or </div>
+            <div class="text-green-700 text-2xl font-medium mb-4 text-center"> or </div>
             <div 
-              class="bg-white p-6 rounded shadow text-left w-3/12">
-              <div class="text-green-700 text-2xl font-medium mb-4 text-center">
+              class="bg-white p-6 ml-6 rounded shadow text-left w-3/12">
+              <div class="text-orange-600 text-2xl font-medium mb-4 text-center">
                 <h3>You are a Guest?</h3>
               </div>
 
-              <div class="mt-4 w-full text-white">
-                <button @click="guest" class="rounded p-2 bg-green-400 hover:bg-green-500 w-full">
+              <div class="mt-4 w-full text-white hover:text-orange-600">
+                <button @click="guest" class="rounded font-medium p-1 border-solid border-4 border-orange-500 bg-orange-500 hover:bg-white w-full">
                   Guest Log In
                 </button>
               </div>
