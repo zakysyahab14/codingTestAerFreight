@@ -61,7 +61,7 @@ export const actions = {
                     .then(response => {
                         if (response.status === 200) {
                             resolve(response.data)
-                            window.location.reload
+                            window.location.reload()
                         } else {
                             resolve(false)
                         }
