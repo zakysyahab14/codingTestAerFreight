@@ -6,9 +6,9 @@ const API_SERVER = process.env.API_URL
 export const actions = {
     getCargoList({}, payload){
         let endPoint = `${API_SERVER}data/cargo`
-        // if(payload.loggedIn === false){
-        //     endPoint += `?status=true`
-        // }
+        if(payload.loggedIn === false){
+            endPoint += `?status=true`
+        }
         try{
             return new Promise( resolve => {
                 axios.get(endPoint)
