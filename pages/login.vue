@@ -3,7 +3,7 @@
     <section class="section bg-gray-200 h-screen">
       <div class="text-center flex flex-auto flex-row h-screen justify-center items-center">
             <form method="post" 
-              class="bg-white p-6 rounded shadow text-left w-3/12"
+              class="bg-white p-6 rounded shadow text-left w-3/12 divide-x-2"
               @submit.prevent="login">
               <div class="text-green-700 text-2xl font-medium mb-4 text-center">
                 <h3>Hello Again, Admin! </h3>
@@ -13,7 +13,7 @@
                   v-model="username"
                   type="text"
                   class="input-style w-full p-1 rounded border border-gray-500 border-solid"
-                  placeholder="Username"
+                  placeholder="Username (admin)"
                   name="username"
                   v-bind:class="[error.username ? 'border-red-700' : '']"
                 >
@@ -30,7 +30,7 @@
                   type="password"
                   class="input-style w-full p-1 rounded border-gray-500 border border-gray-500 border-solid" 
                   name="password"
-                  placeholder="Password"
+                  placeholder="Password (12345)"
                   v-bind:class="[error.password ? 'border-red-700' : '']"
                 >
                 <span 
@@ -46,6 +46,19 @@
                 </button>
               </div>
             </form>
+            <div class="text-green-900 text-2xl font-medium mb-4 text-center"> or </div>
+            <div 
+              class="bg-white p-6 rounded shadow text-left w-3/12">
+              <div class="text-green-700 text-2xl font-medium mb-4 text-center">
+                <h3>You are a Guest?</h3>
+              </div>
+
+              <div class="mt-4 w-full text-white">
+                <button @click="guest" class="rounded p-2 bg-green-400 hover:bg-green-500 w-full">
+                  Guest Log In
+                </button>
+              </div>
+            </div>
           </div>
     </section>
   </no-ssr>
@@ -88,6 +101,9 @@ export default {
       if(this.formValidation()){
         this.getUser()
       }
+    },
+    guest(){
+      window.location.href = '/'
     },
     getUser(){
       try{
