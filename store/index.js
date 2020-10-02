@@ -2,7 +2,7 @@
 import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid';
 
-const API_SERVER = 'http://localhost:3005/'
+const API_SERVER = process.env.API_URL
 export const actions = {
     getCargoList({}, payload){
         let endPoint = `${API_SERVER}data/cargo`
